@@ -1,10 +1,11 @@
-from flask import Flask, request, render_template, redirect, url_for
+from flask import Flask, request, render_template, redirect, url_for, jsonify
 import torch
 from torchvision import transforms
 import os
 from PIL import Image
 from werkzeug.utils import secure_filename
 from classifier import CNN
+import joblib
 
 app = Flask(__name__, static_folder='templates/assets')
 
@@ -12,6 +13,33 @@ model = CNN()
 model_path = 'models/classifier.pth'
 model.load_state_dict(torch.load(model_path, map_location=torch.device('cpu')))
 model.eval()
+
+model_path = 'models/predictor.pkl'
+encoders_path = 'models/encoders/'
+model2 = joblib.load(model_path)
+
+
+if hasattr(model2, 'n_estimators_'):
+    print("Model is fitted. Number of estimators:", model2.n_estimators_)
+else:
+    print("Model is not fitted.")
+
+
+encoders = {
+    'Gender': joblib.load(encoders_path + 'Gender_encoder.pkl'),
+    'Hormonal Changes': joblib.load(encoders_path + 'Hormonal_Changes_encoder.pkl'),
+    'Family History': joblib.load(encoders_path + 'Family_History_encoder.pkl'),
+    'Race Ethnicity': joblib.load(encoders_path + 'Race_Ethnicity_encoder.pkl'),
+    'Body Weight': joblib.load(encoders_path + 'Body_Weight_encoder.pkl'),
+    'Calcium Intake': joblib.load(encoders_path + 'Calcium_Intake_encoder.pkl'),
+    'Vitamin D Intake': joblib.load(encoders_path + 'Vitamin_D_Intake_encoder.pkl'),
+    'Physical Activity': joblib.load(encoders_path + 'Physical_Activity_encoder.pkl'),
+    'Smoking': joblib.load(encoders_path + 'Smoking_encoder.pkl'),
+    'Alcohol Consumption': joblib.load(encoders_path + 'Alcohol_Consumption_encoder.pkl'),
+    'Medical Conditions': joblib.load(encoders_path + 'Medical_Conditions_encoder.pkl'),
+    'Medications': joblib.load(encoders_path + 'Medications_encoder.pkl'),
+    'Prior Fractures': joblib.load(encoders_path + 'Prior_Fractures_encoder.pkl'),
+}
 
 transform = transforms.Compose([
     transforms.Resize((224, 224)),
@@ -59,7 +87,35 @@ def predict():
     else:
         return render_template('classify.html', result="Invalid file type", link=None)
 
-    
+@app.route('/predict', methods=['POST'])
+def test():
+    form_data = request.form
+
+    input_data = []
+    for feature, encoder in encoders.items():
+        if feature in form_data:
+            user_input = form_data[feature]
+            if(user_input == "None" or user_input == "none"):
+                user_input = 'nan'
+            if user_input in encoder.classes_:
+                # Transform the user input using the corresponding encoder
+                encoded = encoder.transform([user_input])[0]
+                input_data.append(encoded)
+            else:
+                # Handle unknown category
+                return f"Error: The provided value '{user_input}' for '{feature}' is invalid."
+        else:
+
+            input_data.append(-1)  # Use -1 or any appropriate value that your model can handle as "unknown"
+
+    # Make prediction
+    prediction = model2.predict([input_data])
+
+    # Render the prediction in an HTML page
+    return render_template('prediction.html', prediction=prediction[0])
+
+
+
 
 
 if __name__ == '__main__':
