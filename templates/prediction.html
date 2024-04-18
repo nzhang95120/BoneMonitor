@@ -69,28 +69,92 @@
     <section class="about" data-aos="fade-up">
       <div class="container">
 
-        <div class="row">
-          <div class="col-lg-6">
-            <img src="assets/img/about.jpg" class="img-fluid" alt="">
-          </div>
-          <div class="col-lg-6 pt-4 pt-lg-0">
-            <h3>Voluptatem dignissimos provident quasi corporis voluptates sit assumenda.</h3>
-            <p class="fst-italic">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-              magna aliqua.
-            </p>
-            <ul>
-              <li><i class="bi bi-check2-circle"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
-              <li><i class="bi bi-check2-circle"></i> Duis aute irure dolor in reprehenderit in voluptate velit.</li>
-              <li><i class="bi bi-check2-circle"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate trideta storacalaperda mastiro dolore eu fugiat nulla pariatur.</li>
-            </ul>
-            <p>
-              Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-              velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-              culpa qui officia deserunt mollit anim id est laborum
-            </p>
-          </div>
-        </div>
+        <h1>Bone Health Prediction</h1>
+    <form action="/predict" method="post">
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="Age" required><br>
+
+        <label for="gender">Gender:</label>
+        <select id="gender" name="Gender" required>
+            <option value="Female">Female</option>
+            <option value="Male">Male</option>
+        </select><br>
+
+        <label for="hormonalChanges">Hormonal Changes:</label>
+        <select id="hormonalChanges" name="Hormonal Changes" required>
+            <option value="Normal">Normal</option>
+            <option value="Abnormal">Abnormal</option>
+        </select><br>
+
+        <label for="familyHistory">Family History of Osteoporosis:</label>
+        <select id="familyHistory" name="Family History" required>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select><br>
+
+        <label for="raceEthnicity">Race/Ethnicity:</label>
+        <input type="text" id="raceEthnicity" name="Race/Ethnicity" required><br>
+
+        <label for="bodyWeight">Body Weight:</label>
+        <select id="bodyWeight" name="Body Weight" required>
+            <option value="Underweight">Underweight</option>
+            <option value="Normal">Normal</option>
+            <option value="Overweight">Overweight</option>
+            <option value="Obese">Obese</option>
+        </select><br>
+
+        <label for="calciumIntake">Calcium Intake:</label>
+        <select id="calciumIntake" name="Calcium Intake" required>
+            <option value="Low">Low</option>
+            <option value="Adequate">Adequate</option>
+            <option value="High">High</option>
+        </select><br>
+
+        <label for="vitaminD">Vitamin D Intake:</label>
+        <select id="vitaminD" name="Vitamin D Intake" required>
+            <option value="Insufficient">Insufficient</option>
+            <option value="Sufficient">Sufficient</option>
+            <option value="Excessive">Excessive</option>
+        </select><br>
+
+        <label for="physicalActivity">Physical Activity:</label>
+        <select id="physicalActivity" name="Physical Activity" required>
+            <option value="Sedentary">Sedentary</option>
+            <option value="Moderate">Moderate</option>
+            <option value="Active">Active</option>
+        </select><br>
+
+        <label for="smoking">Smoking:</label>
+        <select id="smoking" name="Smoking" required>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select><br>
+
+        <label for="alcohol">Alcohol Consumption:</label>
+        <select id="alcohol" name="Alcohol Consumption" required>
+            <option value="None">None</option>
+            <option value="Moderate">Moderate</option>
+            <option value="High">High</option>
+        </select><br>
+
+        <label for="medicalConditions">Medical Conditions:</label>
+        <input type="text" id="medicalConditions" name="Medical Conditions" required><br>
+
+
+        <label for="medications">Medications:</label>
+        <select id="medications" name="Medications" required>
+          <option value="None">None</option>
+          <option value="Corticosteroids">Steroids</option>
+        </select>
+
+        <label for="priorFractures">Prior Fractures:</label>
+        <select id="priorFractures" name="Prior Fractures" required>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select><br>
+
+        <input type="submit" value="Submit">
+    </form>
 
       </div>
     </section><!-- End About Section -->
@@ -99,231 +163,105 @@
     <section class="facts section-bg" data-aos="fade-up">
       <div class="container">
 
-        <div class="row counters">
-
-          <div class="col-lg-3 col-6 text-center">
-            <span data-purecounter-start="0" data-purecounter-end="232" data-purecounter-duration="1" class="purecounter"></span>
-            <p>Clients</p>
-          </div>
-
-          <div class="col-lg-3 col-6 text-center">
-            <span data-purecounter-start="0" data-purecounter-end="521" data-purecounter-duration="1" class="purecounter"></span>
-            <p>Projects</p>
-          </div>
-
-          <div class="col-lg-3 col-6 text-center">
-            <span data-purecounter-start="0" data-purecounter-end="1463" data-purecounter-duration="1" class="purecounter"></span>
-            <p>Hours Of Support</p>
-          </div>
-
-          <div class="col-lg-3 col-6 text-center">
-            <span data-purecounter-start="0" data-purecounter-end="15" data-purecounter-duration="1" class="purecounter"></span>
-            <p>Hard Workers</p>
-          </div>
-
-        </div>
+        {% if prediction == 1 %}
+        <p>You might have Osteoporosis. Please check our Recommendations page for further info.</p>
+    {% else %}
+        <p>You probably do not have Osteporosis. Look below for more info</p>
+    {% endif %}
 
       </div>
     </section><!-- End Facts Section -->
 
-    <!-- ======= Our Skills Section ======= -->
-    <section class="skills" data-aos="fade-up">
+    <!-- ======= Features Section ======= -->
+    <section class="features">
       <div class="container">
 
         <div class="section-title">
-          <h2>Our Skills</h2>
-          <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+          <h2>Tips on Preventing Osteoporosis</h2>
+          <p>Osteoporosis is a condition characterized by weakened bones that are more susceptible to fractures. It is commonly referred to as a "silent disease" because it can progress without any symptoms until a bone breaks.</p>
         </div>
 
-        <div class="skills-content">
-
-          <div class="progress">
-            <div class="progress-bar bg-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
-              <span class="skill">HTML <i class="val">100%</i></span>
-            </div>
+        <div class="row" data-aos="fade-up">
+          <div class="col-md-5">
+            <img src="assets/img/osto.jpg" class="img-fluid" alt="">
           </div>
-
-          <div class="progress">
-            <div class="progress-bar bg-info" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">
-              <span class="skill">CSS <i class="val">90%</i></span>
-            </div>
+          <div class="col-md-7 pt-4">
+            <h3>Background Info.</h3>
+            <p>
+              Bone is living tissue that constantly breaks down and is replaced. Osteoporosis occurs when the creation of new bone doesn't keep up with the loss of old bone. This leads to decreased bone mass and strength. The most common injuries in people with osteoporosis are wrist fractures, hip fractures, and fractures of the spinal vertebrae. This is most commonly found in older generations, where bone structure has slowly deteriorated. More Info <a href="https://www.niams.nih.gov/health-topics/osteoporosis#:~:text=Osteoporosis%20is%20a%20bone%20disease,of%20fractures%20(broken%20bones).">Here.</a>
+            </p>
+            
           </div>
-
-          <div class="progress">
-            <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
-              <span class="skill">JavaScript <i class="val">75%</i></span>
-            </div>
-          </div>
-
-          <div class="progress">
-            <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100">
-              <span class="skill">Photoshop <i class="val">55%</i></span>
-            </div>
-          </div>
-
         </div>
 
-      </div>
-    </section><!-- End Our Skills Section -->
-
-    <!-- ======= Tetstimonials Section ======= -->
-    <section class="testimonials" data-aos="fade-up">
-      <div class="container">
-
-        <div class="section-title">
-          <h2>Tetstimonials</h2>
-          <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+        <div class="row" data-aos="fade-up">
+          <div class="col-md-5 order-1 order-md-2">
+            <img src="assets/img/foods.jpg" class="img-fluid" alt="">
+          </div>
+          <div class="col-md-7 pt-5 order-2 order-md-1">
+            <h3>Diet/Exercise</h3>
+            <p>
+              Ensure a diet rich in calcium and vitamin D. Good sources of calcium include dairy products, almonds, broccoli, kale, canned salmon with bones, sardines, and soy products, such as tofu. For vitamin D, sunlight exposure is crucial, and it can also be found in fortified foods and supplements. A good diet will help prevent Osteoporosis from forming.
+            </p>
+            <p>
+              Regular exercise is critical. Weight-bearing exercises (such as walking, jogging, and climbing stairs) and strength training can help strengthen bones.
+            </p>
+          </div>
         </div>
 
-        <div class="testimonials-carousel swiper">
-          <div class="swiper-wrapper">
-            <div class="testimonial-item swiper-slide">
-              <img src="assets/img/testimonials/testimonials-1.jpg" class="testimonial-img" alt="">
-              <h3>Saul Goodman</h3>
-              <h4>Ceo &amp; Founder</h4>
-              <p>
-                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.
-                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-              </p>
-            </div>
-
-            <div class="testimonial-item swiper-slide">
-              <img src="assets/img/testimonials/testimonials-2.jpg" class="testimonial-img" alt="">
-              <h3>Sara Wilsson</h3>
-              <h4>Designer</h4>
-              <p>
-                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid cillum eram malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.
-                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-              </p>
-            </div>
-
-            <div class="testimonial-item swiper-slide">
-              <img src="assets/img/testimonials/testimonials-3.jpg" class="testimonial-img" alt="">
-              <h3>Jena Karlis</h3>
-              <h4>Store Owner</h4>
-              <p>
-                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.
-                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-              </p>
-            </div>
-
-            <div class="testimonial-item swiper-slide">
-              <img src="assets/img/testimonials/testimonials-4.jpg" class="testimonial-img" alt="">
-              <h3>Matt Brandon</h3>
-              <h4>Freelancer</h4>
-              <p>
-                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.
-                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-              </p>
-            </div>
-
-            <div class="testimonial-item swiper-slide">
-              <img src="assets/img/testimonials/testimonials-5.jpg" class="testimonial-img" alt="">
-              <h3>John Larson</h3>
-              <h4>Entrepreneur</h4>
-              <p>
-                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam enim culpa labore duis sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum quid.
-                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-              </p>
-            </div>
+        <div class="row" data-aos="fade-up">
+          <div class="col-md-5">
+            <img src="assets/img/medi.jpg" class="img-fluid" alt="">
           </div>
-          <div class="swiper-pagination"></div>
+          <div class="col-md-7 pt-5">
+            <h3>Medications</h3>
+            <ul>
+              <li><i class="bi bi-check"></i>If you're at a high risk of fractures, certain medications can help to prevent bone loss and strengthen bones. Consult with a healthcare provider for guidance.</li>
+              <li><i class="bi bi-check"></i>Bone Density Tests are also very important for identification </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="row" data-aos="fade-up">
+          <div class="col-md-5 order-1 order-md-2">
+            <img src="assets/img/hor.png" class="img-fluid" alt="">
+          </div>
+          <div class="col-md-7 pt-5 order-2 order-md-1">
+            <h3>Monitor Hormone Levels</h3>
+            <p>
+              Hormonal imbalances, particularly lower estrogen levels in women post-menopause, significantly affect bone density. Men can also experience bone density loss due to a drop in testosterone. Hormone replacement therapy may be considered under the supervision of a healthcare provider.
+            </p>
+
+          </div>
         </div>
 
       </div>
-    </section><!-- End Ttstimonials Section -->
+    </section><!-- End Features Section -->
 
   </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->
   <footer id="footer" data-aos="fade-up" data-aos-easing="ease-in-out" data-aos-duration="500">
 
-    <div class="footer-newsletter">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-6">
-            <h4>Our Newsletter</h4>
-            <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
-          </div>
-          <div class="col-lg-6">
-            <form action="" method="post">
-              <input type="email" name="email"><input type="submit" value="Subscribe">
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
+    
 
     <div class="footer-top">
       <div class="container">
         <div class="row">
-
-          <div class="col-lg-3 col-md-6 footer-links">
-            <h4>Useful Links</h4>
-            <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
-            </ul>
-          </div>
-
-          <div class="col-lg-3 col-md-6 footer-links">
-            <h4>Our Services</h4>
-            <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>
-            </ul>
-          </div>
-
-          <div class="col-lg-3 col-md-6 footer-contact">
-            <h4>Contact Us</h4>
-            <p>
-              A108 Adam Street <br>
-              New York, NY 535022<br>
-              United States <br><br>
-              <strong>Phone:</strong> +1 5589 55488 55<br>
-              <strong>Email:</strong> info@example.com<br>
-            </p>
-
-          </div>
-
           <div class="col-lg-3 col-md-6 footer-info">
-            <h3>About Moderna</h3>
-            <p>Cras fermentum odio eu feugiat lide par naso tierra. Justo eget nada terra videa magna derita valies darta donna mare fermentum iaculis eu non diam phasellus.</p>
-            <div class="social-links mt-3">
-              <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
-              <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
-              <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
-              <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
-            </div>
+            <h1>Bone Monitor</h1>
+            
+            <p>Using AI to improve diagnosing</p>
+          </div>
+
+          
           </div>
 
         </div>
       </div>
     </div>
 
-    <div class="container">
-      <div class="copyright">
-        &copy; Copyright <strong><span>Moderna</span></strong>. All Rights Reserved
-      </div>
-      <div class="credits">
-        <!-- All the links in the footer should remain intact. -->
-        <!-- You can delete the links only if you purchased the pro version. -->
-        <!-- Licensing information: https://bootstrapmade.com/license/ -->
-        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/free-bootstrap-template-corporate-moderna/ -->
-        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-      </div>
-    </div>
+    
   </footer><!-- End Footer -->
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>

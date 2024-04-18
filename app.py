@@ -19,10 +19,6 @@ encoders_path = 'models/encoders/'
 model2 = joblib.load(model_path)
 
 
-if hasattr(model2, 'n_estimators_'):
-    print("Model is fitted. Number of estimators:", model2.n_estimators_)
-else:
-    print("Model is not fitted.")
 
 
 encoders = {
@@ -92,18 +88,34 @@ def test():
     form_data = request.form
 
     input_data = []
+
+    age = form_data.get('Age', None)
+    
+    if age is not None:
+        try:
+            # Convert age to float or int as required by your model
+    
+            input_data.append(float(age))
+        except ValueError:
+            return "Error: Invalid input for 'Age'. Please provide a valid number."
+    else:
+        return "Error: 'Age' is required for prediction."
+    
+
     for feature, encoder in encoders.items():
         if feature in form_data:
             user_input = form_data[feature]
             if(user_input == "None" or user_input == "none"):
                 user_input = 'nan'
-            if user_input in encoder.classes_:
-                # Transform the user input using the corresponding encoder
+            if(user_input == "Abnormal"):
+                user_input = 'Postmenopausal'
+            if user_input is not None and user_input in encoder.classes_:
                 encoded = encoder.transform([user_input])[0]
                 input_data.append(encoded)
             else:
-                # Handle unknown category
-                return f"Error: The provided value '{user_input}' for '{feature}' is invalid."
+            # Use the first class as a default or define a specific default for each feature
+                default_value = encoder.transform([encoder.classes_[0]])[0]
+                input_data.append(default_value)
         else:
 
             input_data.append(-1)  # Use -1 or any appropriate value that your model can handle as "unknown"
