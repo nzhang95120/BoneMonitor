@@ -44,7 +44,7 @@
     <div class="container d-flex justify-content-between align-items-center">
 
       <div class="logo">
-        <h1 class="text-light"><a href="/"><span>Bone Monitor</span></a></h1>
+        <h1 class="text-light"><a href="/"><span>VisiBone</span></a></h1>
         <!-- Uncomment below if you prefer to use an image logo -->
         <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
       </div>
@@ -163,11 +163,15 @@
     <section class="facts section-bg" data-aos="fade-up">
       <div class="container">
 
-        {% if prediction == 1 %}
+        {% if prediction_made %}
+    {% if prediction == 1 %}
         <p>You might have Osteoporosis. Please check our Recommendations page for further info.</p>
     {% else %}
-        <p>You probably do not have Osteporosis. Look below for more info</p>
+        <p>You probably do not have Osteoporosis. Look below for more info</p>
     {% endif %}
+{% else %}
+    <p>Please fill in the form to get a prediction.</p>
+{% endif %}
 
       </div>
     </section><!-- End Facts Section -->
@@ -249,7 +253,7 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-3 col-md-6 footer-info">
-            <h1>Bone Monitor</h1>
+            <h1>VisiBone</h1>
             
             <p>Using AI to improve diagnosing</p>
           </div>
