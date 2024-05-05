@@ -7,6 +7,7 @@ from werkzeug.utils import secure_filename
 from classifier import CNN
 import joblib
 
+
 app = Flask(__name__, static_folder='templates/assets')
 
 model = CNN()
@@ -17,7 +18,6 @@ model.eval()
 model_path = 'models/predictor.pkl'
 encoders_path = 'models/encoders/'
 model2 = joblib.load(model_path)
-
 
 
 
@@ -71,9 +71,9 @@ def predict():
         image = transform(image).unsqueeze(0)
         output = model(image)
         _, predicted = torch.max(output, 1)
-        if predicted.numpy()[0] == 1:  # Assuming 1 is 'osteoporosis'
+        if predicted.numpy()[0] == 1: 
             result = 'osteoporosis'
-            link = '/recommendations'  # This should be the URL to your recommendations tab or page
+            link = '/recommendations'
             message = "We recommend visiting our recommendations page for further advice."
         else:
             result = 'normal'
@@ -94,7 +94,6 @@ def test():
         
         if age is not None:
             try:
-                # Convert age to float or int as required by your model
         
                 input_data.append(float(age))
             except ValueError:
@@ -114,20 +113,16 @@ def test():
                     encoded = encoder.transform([user_input])[0]
                     input_data.append(encoded)
                 else:
-                # Use the first class as a default or define a specific default for each feature
                     default_value = encoder.transform([encoder.classes_[0]])[0]
                     input_data.append(default_value)
             else:
 
-                input_data.append(-1)  # Use -1 or any appropriate value that your model can handle as "unknown"
+                input_data.append(-1) 
 
-        # Make prediction
         prediction = model2.predict([input_data])
         prediction_made = True
-        # Render the prediction in an HTML page
         return render_template('prediction.html', prediction=prediction[0], prediction_made=prediction_made)
     else:
-        # No prediction has been made yet
         prediction_made = False
         return render_template('prediction.html', prediction_made=prediction_made)
 
